@@ -4,8 +4,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/kataras/iris/cache"
-
 	"github.com/kataras/iris"
 )
 
@@ -22,14 +20,14 @@ func main() {
 
 	// app.he
 	app.Get("/redirect", func(ctx iris.Context) {
-		ctx.Header(cache.CacheControlHeaderValue, "no-store")
+		ctx.Header("cache-control", "no-store")
 		t := time.Now()
 		ctx.Redirect("/img/t?="+t.UTC().String(), 307)
 	})
 
 	// always return 404 and contents.
 	app.Get("/404", func(ctx iris.Context) {
-		ctx.Header(cache.CacheControlHeaderValue, "no-store")
+		ctx.Header("cache-control", "no-store")
 		ctx.StatusCode(404)
 		// TODO : add response image
 	})
